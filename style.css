@@ -181,3 +181,6 @@ textarea.ok {
     text-decoration: none !important;
 }
 
+.panel-heading {
+    cursor: pointer;
+}

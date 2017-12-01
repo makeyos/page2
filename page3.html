@@ -1,0 +1,257 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="ideal-postcodes-autocomplete.js"></script>
+<script src="allies-autocomplete.js"></script>
+<script src="code.js"></script>
+
+
+<div class="container">
+    <div class="row form-group">
+
+        <div class="col-md-12">
+            <div class="col well well-xs">
+                <div class="row">
+                    <div class=" col-xs-offset-1 col-xs-10">
+                        <div class="panel-group" id="accordion" role="tablist">
+                            <!-- panel start -->
+                            <div id="panel_home_1" class="panel panel-default ok">
+                                <div class="panel-heading" role="tab" id="heading_home_1">
+                                    <div id="header_home_1" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse_home_1">
+                                        <h4 id="ptitle_home_1" class="panel-title">
+                                            <span class="pull-left glyphicon glyphicon-asterisk"></span><a style="padding-left: 0.4em;">Your current address</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div id="collapse_home_1" class="panel-collapse collapse fade" role="tabpanel">
+                                    <div class="panel-body">
+                                        <div class="alert alert-warning" role="alert" id="hinfo_home_1"> <!-- hidden info -->
+                                            <h4><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <strong>We need your address details for at last 3 years.</strong></h4>
+                                            Because you'll lived at your current address for less than 3 years, please provide details of your prevous address.
+                                        </div>
+
+                                        <!-- Nav tabs -->
+                                        <ul id="addresstabs_home_1" class="nav nav-pills nav-justified" role="tablist">
+                                            <li role="presentation" class="active"><a data-target="#searchtab_home_1" role="tab" data-toggle="tab">
+                                                Address lookup</a>
+                                            </li>
+                                            <li role="presentation"><a data-target="#manualtab_home_1" role="tab" data-toggle="tab">
+                                                Manually enter </a>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="searchtab_home_1">
+                                                <div class="panel panel-default" id="search_heading_1"><!-- searching tab -->
+                                                    <div class="panel-heading">
+                                                        <span class="pull-left glyphicon glyphicon-asterisk"></span>
+                                                        <h3 class="panel-title"><a style="padding-left: 0.4em">Search address</a></h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group" id="searchinputgroup_home_1">
+                                                            <label for="searchinput_home_1">Search for post code, address or a building name</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control"
+                                                                       name="adrsearch" id="searchinput_home_1" placeholder="Type your address"
+                                                                       data-ver="none" data-id="1" data-type="home">
+                                                                <span class="input-group-addon" id="searchsuggcount_home_1">...</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group hidden" id="addressfield_home_1">
+                                                            <label for="textarea_home_1">Your Address:</label>
+                                                            <div class="input-group">
+                                                        <span class="input-group-addon success"><span
+                                                                class="glyphicon glyphicon-ok"></span></span>
+                                                                <textarea rows="2" class="form-control"
+                                                                          name="validate-length" id="textarea_home_1"
+                                                                          readonly></textarea>
+                                                                <span class="input-group-addon"><button
+                                                                        class="btn btn-danger" type="button" name="rmaddress"
+                                                                        data-id="1" data-type="home">
+                                                                <span class="glyphicon glyphicon-remove"></span></button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="manualtab_home_1">
+                                                    <div class="panel panel-default"><!-- manual tab -->
+                                                        <div class="panel-heading"><span class="pull-left glyphicon glyphicon-asterisk"></span>
+                                                            <h3 class="panel-title"><a style="padding-left: 0.4em">Please enter your address</a></h3>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label for="fladdress_home_1">First line of address</label>
+                                                                <div class="input-group" data-validate="number">
+                                                                <span class="input-group-addon"><span
+                                                                        class="glyphicon glyphicon-asterisk"></span></span>
+                                                                    <input type="text" class="form-control"
+                                                                           name="validate-number" id="fladdress_home_1"
+                                                                           placeholder="Please provide first line of address"
+                                                                           data-ver="text-only"
+                                                                           data-req="1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="sladdress_home_1">Second line of address</label>
+                                                                <div class="input-group" data-validate="number">
+                                                                <span class="input-group-addon"><span
+                                                                        class="glyphicon glyphicon-asterisk"></span></span>
+                                                                    <input type="text" class="form-control"
+                                                                           name="validate-number" id="sladdress_home_1"
+                                                                           placeholder="Second line of address"
+                                                                           data-ver="text-only"
+                                                                           data-req="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="tladdress_home_1">Third line of address</label>
+                                                                <div class="input-group" data-validate="number">
+                                                                <span class="input-group-addon"><span
+                                                                        class="glyphicon glyphicon-asterisk"></span></span>
+                                                                    <input type="text" class="form-control"
+                                                                           name="validate-number" id="tladdress_home_1"
+                                                                           placeholder="Validate Number"
+                                                                           data-ver="text-only"
+                                                                           data-req="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="city_home_1">Your City</label>
+                                                                <div class="input-group" data-validate="number">
+                                                                <span class="input-group-addon"><span
+                                                                        class="glyphicon glyphicon-asterisk"></span></span>
+                                                                    <input type="text" class="form-control"
+                                                                           name="validate-number" id="city_home_1"
+                                                                           placeholder="Validate Number"
+                                                                           data-ver="text-only"
+                                                                           data-req="1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6 col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="county_home_1">County</label>
+                                                                        <div class="input-group" data-validate="number">
+                                                                        <span class="input-group-addon"><span
+                                                                                class="glyphicon glyphicon-asterisk"></span></span>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="validate-number" id="county_home_1"
+                                                                                   placeholder="Validate Number"
+                                                                                   data-ver="text-only" data-req="1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-lg-6">
+                                                                    <div class="form-group">
+                                                                        <label for="postcode_home_1">Your postcode</label>
+                                                                        <div class="input-group" data-validate="number">
+                                                                        <span class="input-group-addon"><span
+                                                                                class="glyphicon glyphicon-asterisk"></span></span>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="validate-number" id="postcode_home_1"
+                                                                                   placeholder="Validate Number"
+                                                                                   data-ver="postocde" data-req="1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <p>
+
+
+                                        <div class="panel panel-default"><!-- move in -->
+                                            <div class="panel-heading"><span class="pull-left glyphicon glyphicon-asterisk"></span>
+                                                <h3 class="panel-title"><a style="padding-left: 0.4em">When you did moved in ?</a></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+
+                                                    <div class="col-sm-6 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="omonths_home_1">Month</label>
+                                                            <div class="input-group">
+
+                                                            <span class="input-group-addon"><span
+                                                                    class="glyphicon glyphicon-asterisk"></span></span>
+                                                                <select class="form-control" name="option_months"
+                                                                        id="omonths_home_1" data-id="1" data-type="home">
+                                                                    <option value="">Select a month</option>
+                                                                </select>
+                                                            </div><!-- /input-group -->
+                                                        </div><!--/.form-group -->
+                                                    </div><!-- /.col-md-6 col-lg-6 -->
+                                                    <div class="col-sm-6 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="oyears_home_1">Year</label>
+                                                            <div class="input-group">
+                                                            <span class="input-group-addon"><span
+                                                                    class="glyphicon glyphicon-asterisk"></span></span>
+                                                                <select class="form-control" name="option_years"
+                                                                        id="oyears_home_1" data-id="1" data-type="home">
+                                                                    <option value="">Select an year</option>
+                                                                </select>
+                                                            </div><!-- /input-group -->
+                                                        </div><!-- /.form-group -->
+                                                    </div><!-- /.col-md-6 col-lg-6 -->
+                                                </div><!-- /.row -->
+                                            </div>
+                                        </div><!-- move in end -->
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- panel start -->
+                            <div id="panel_home_2" class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading_home_2">
+                                    <div id="header_home_2" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapse_home_2">
+                                        <h4 id="ptitle_home_2" class="panel-title">
+                                            <span class="pull-left glyphicon glyphicon-asterisk"></span><a style="padding-left: 0.4em;">Your previous address</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div id="collapse_home_2" class="panel-collapse collapse in" role="tabpanel">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- panel start -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            Collapsible Group Item #3
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,21 +16,21 @@ $(document).ready(function () {
         ];
 
     // initialisation first search field
-    createNewSearch("search_input_1")
+    createNewSearch("searchinput_home_1")
     // end of init.
 
     for (var j = start_year; j >= 1900; j--) {
         var opt = document.createElement('option');
         opt.value = j;
         opt.innerHTML = j;
-        document.getElementById("option_years").appendChild(opt);
+        document.getElementById("oyears_home_1").appendChild(opt);
     }
 
     for (var i = 0; i <= 11; i++) {
         var opt = document.createElement('option');
         opt.value = i + 1;
         opt.innerHTML = monthNames[i];
-        document.getElementById("option_months").appendChild(opt);
+        document.getElementById("omonths_home_1").appendChild(opt);
     }
 
 /*    $(document).on('change keydown keyup', '#search_input_1', function (e) {
@@ -146,28 +146,43 @@ $(document).ready(function () {
             inputField: "#" + input_field,
             onAddressRetrieved: function(data) {
                 var print_address = data.line_1 + "\n" + data.post_town + "\n" + data.postcode + "\n";
+                var toadd = search_obj['type'] + "_" + search_obj['id'];
                 var dest = "#textarea_" + search_obj['type'] + "_" + search_obj['id'];
                 var id = search_obj['id'];
-                var lines = 3
+                var lines = 3;
 
-                $(dest).attr("rows", lines).html(print_address).addClass("ok");
+                $('#textarea_' + toadd).attr("rows", lines).html(print_address).addClass("ok");
 
 
-                $("#address_field_" + id).removeClass("hidden");
-                $("#search_input_group_" + id).addClass("hidden");
-                $("#search_heading_" + id).addClass("ok");
+                $("#addressfield_" + toadd).removeClass("hidden");
+                $('#searchinputgroup_' + toadd).addClass("hidden");
+                $("#panel_" + toadd).addClass("ok");
 
+            },
+            onSuggestionsRetrieved: function (sugg) {
+                var sugg_box = $("#searchsuggcount_" + search_obj['type'] + "_" + search_obj['id']);
+
+                if (sugg.length === 10) {
+                    sugg_box.removeClass("danger").addClass("success");
+                    sugg_box.html("+" + sugg.length + " found");
+                } else if (sugg.length > 0 && sugg.length !== 10) {
+                    sugg_box.removeClass("danger").addClass("success");
+                    sugg_box.html(sugg.length + " found");
+                } else {
+                    sugg_box.removeClass("success").addClass("danger");
+                    sugg_box.html("not found");
+                }
             }
         });
-    };
+    }
 
 
-    $('div#homeaddresspanel').on('show.bs.collapse', function () {
+ /*   $('div#homeaddresspanel').on('show.bs.collapse', function () {
         // console.log(JSON.stringify(this, null, 4));
-        /*call_back_search_input = "#search_input_" + $(this).data('id');
+        /!*call_back_search_input = "#search_input_" + $(this).data('id');
         console.log('hidden ' + $(this).data('id'));
-        console.log(call_back_search_input);*/
-    })
+        console.log(call_back_search_input);*!/
+    })*/
 
     $(document).on('click', "button#test_button1", function (e) {
         call_back_search_input = "#search_input_2";
@@ -179,12 +194,14 @@ $(document).ready(function () {
     ///////// END  //////////////
 
 
-    $(document).on('click', "#remove_address1", function (e) {
+    $(document).on('click', "[name='rmaddress']", function () {
 
-        $(search_obj['textaara']).attr("rows", 1).html('');
-        $(search_obj['searchtab']).find("#address_field_" + search_obj['id']).addClass("hidden");
-        $(search_obj['searchtab']).find("#search_input_group_" + search_obj['id']).removeClass("hidden");
-        $(search_obj['searchtab']).find("#search_heading_" + search_obj['id']).removeClass("ok");
+        var toremove = $(this).data('type') + "_" + $(this).data('id');
+
+        $('#textarea_' + toremove).attr("rows", 1).html('').removeClass('ok');
+        $('#addressfield_' + toremove).addClass("hidden");
+        $('#searchinputgroup_' + toremove).removeClass("hidden");
+        $("#panel_" + toremove).removeClass("ok");
 
     });
 
@@ -192,18 +209,23 @@ $(document).ready(function () {
         // document.getElementById(this.id).removeChild(this.childNodes[1]);
     });
 
-    $(document).on("change keyup keydown", "[name='adrsearch']", function(e) {
+    $(document).on("change keyup keydown", "[name='adrsearch']", function() {
         console.log("test of imput: " + this.id);
         search_obj['id'] = $(this).data('id');
         search_obj['type'] = $(this).data('type')
         //console.log("destination: " + active_adrsearch_destination);
     });
 
-    $(document).on('change', "#option_months, #option_years", function (e) {
+    $(document).on('change', "[name='option_months'], [name='option_years']", function () {
+
         var id = $(this).data('id'),
             type = $(this).data('type'),
             field = this.id,
             value = this.value;
+
+
+        search_obj['id'] = id;
+        search_obj['type'] = type;
 
         function setValue(object, path, value) {
             var last = path.pop();
@@ -218,8 +240,8 @@ $(document).ready(function () {
 
         console.log("==> "+ JSON.stringify(leave_moniths, null ,4));
 
-        if (this.id === "option_months") sel_month = this.value;
-        if (this.id === "option_years") sel_year = this.value;
+        if ($(this).attr('name') === "option_months") sel_month = this.value;
+        if ($(this).attr('name') === "option_years") sel_year = this.value;
 
 
         existing_tabs = $('div#' + search_obj['type'] + 'addresspanel').length;
@@ -258,8 +280,7 @@ $(document).ready(function () {
                 //currentEntry.find('div#collapse_' + search_obj['id']).removeClass('in');
                 //currentEntry.find('div#title_collapse_' + search_obj['id']).addClass('collapsed');
 
-                var newEntry = $(currentEntry.clone())
-                        .appendTo(controlForm);
+                var newEntry = $(currentEntry.clone());
 
                 /*  newEntry.find('#panel-heading').prop("id","headingTwo");
                   newEntry.find('#collapse_label_1').text("Address #2").prop("id","collapse_label_2").prop("href","#collapseTwo");
@@ -268,6 +289,9 @@ $(document).ready(function () {
                 newEntry.find('div#title_collapse_' + search_obj['id']).attr('id', 'title_collapse_' + new_tab_nr).children('div:first').attr('href', '#collapse_' + new_tab_nr).html(title).collapse("toggle");
                 newEntry.find('div#collapse_' + search_obj['id']).attr('id', 'collapse_' + new_tab_nr).addClass('in');
                 newEntry.find('div#hiddeninfo_' + search_obj['id']).attr('id', 'hiddeninfo_' + new_tab_nr).removeClass("hidden");
+                newEntry.find(':input').data('id', new_tab_nr)
+
+                newEntry.appendTo(controlForm);
             } else {
                 console.log("checked and ALL GOOD " + len_mnt)
 

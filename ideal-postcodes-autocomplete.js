@@ -156,8 +156,7 @@ var Autocomplete;
         Interface.prototype.initialiseInterface = function (options) {
             this.suggestions = [];
             this.highlightIndex = -1;
-            this.input = document.querySelector(call_back_search_input);
-            console.log('The Call Is From: ' + call_back_search_input);
+            this.input = document.querySelector(options.inputField);
             this.input.setAttribute("autocomplete", "off");
             this.input.setAttribute("aria-autocomplete", "list");
             this.container = create("div", {
