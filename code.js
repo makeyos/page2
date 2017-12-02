@@ -156,7 +156,12 @@ $(document).ready(function () {
 
                 $("#addressfield_" + toadd).removeClass("hidden");
                 $('#searchinputgroup_' + toadd).addClass("hidden");
-                $("#panel_" + toadd).addClass("ok");
+                $("#searchheading_" + toadd).addClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-ok');
+
+                if ('month and year' !== null) {
+                    $('#panel_' + toadd).addClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-ok');
+                }
+
 
             },
             onSuggestionsRetrieved: function (sugg) {
@@ -184,16 +189,9 @@ $(document).ready(function () {
         console.log(call_back_search_input);*!/
     })*/
 
-    $(document).on('click', "button#test_button1", function (e) {
-        call_back_search_input = "#search_input_2";
-        console.log('been clicked!' + call_back_search_input);
-
-        //console.log($(this).find("a").text());
-    });
-
     ///////// END  //////////////
 
-
+        // removing searched address
     $(document).on('click', "[name='rmaddress']", function () {
 
         var toremove = $(this).data('type') + "_" + $(this).data('id');
@@ -201,21 +199,21 @@ $(document).ready(function () {
         $('#textarea_' + toremove).attr("rows", 1).html('').removeClass('ok');
         $('#addressfield_' + toremove).addClass("hidden");
         $('#searchinputgroup_' + toremove).removeClass("hidden");
-        $("#panel_" + toremove).removeClass("ok");
-
+        $('#searchinput_' + toremove).html(''); // not working
+        $('#searchsuggecount_'+ toremove).removeClass('danger success').html('...'); //not working
+        $("#searchheading_" + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
+        $('#panel_' + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
     });
 
-    $(document).on('click', "#option_months, #option_years", function (e) {
-        // document.getElementById(this.id).removeChild(this.childNodes[1]);
-    });
 
+        // read active panel after search input change
     $(document).on("change keyup keydown", "[name='adrsearch']", function() {
         console.log("test of imput: " + this.id);
         search_obj['id'] = $(this).data('id');
-        search_obj['type'] = $(this).data('type')
+        search_obj['type'] = $(this).data('type');
         //console.log("destination: " + active_adrsearch_destination);
     });
-
+        // on change of selected years or months
     $(document).on('change', "[name='option_months'], [name='option_years']", function () {
 
         var id = $(this).data('id'),
@@ -223,17 +221,19 @@ $(document).ready(function () {
             field = this.id,
             value = this.value;
 
-
+        // read active panel after changing select
         search_obj['id'] = id;
         search_obj['type'] = type;
 
+
+            // save values in array function
         function setValue(object, path, value) {
             var last = path.pop();
             path.reduce(function (o, k) {
                 return o[k] = o[k] || {};
             }, object)[last] = value;
         }
-
+        // call values in array function
         setValue(leave_moniths, [type, id, field], value);
 
 
@@ -244,7 +244,7 @@ $(document).ready(function () {
         if ($(this).attr('name') === "option_years") sel_year = this.value;
 
 
-        existing_tabs = $('div#' + search_obj['type'] + 'addresspanel').length;
+        var existing_tabs = $("[title='addresspanel_" + search_obj['type'] + "']").length;
         new_tab_nr = existing_tabs + 1;
 
 
@@ -252,9 +252,12 @@ $(document).ready(function () {
 
 
 
-        today = start_year * 12 + start_month;
-        selected_date = sel_year * 12 + sel_month * 1;
-        len_mnt = today - selected_date;
+        var today = start_year * 12 + start_month;
+        var selected_date = sel_year * 12 + sel_month * 1;
+        var len_mnt = today - selected_date;
+
+
+        //setValue(leave_moniths, [type, id, "total"], len_mnt);
 
         /*console.log(start_year + ' + ' + start_month + ' = ' + today);
         console.log(sel_year + ' + ' + sel_month + ' = ' + selected_date);
@@ -262,6 +265,7 @@ $(document).ready(function () {
 
 
         if (sel_month !== "" && sel_year !== "") {
+            $("#livedselect_" + search_obj['type'] + "_" + search_obj['id']).addClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-ok');
             if (len_mnt <= 35) {
                 console.log("checked but less then 3 years! " + len_mnt);
                 $("#collapse_" + search_obj['id']).collapse('toggle');
