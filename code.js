@@ -199,8 +199,8 @@ $(document).ready(function () {
         $('#textarea_' + toremove).attr("rows", 1).html('').removeClass('ok');
         $('#addressfield_' + toremove).addClass("hidden");
         $('#searchinputgroup_' + toremove).removeClass("hidden");
-        $('#searchinput_' + toremove).html(''); // not working
-        $('#searchsuggecount_'+ toremove).removeClass('danger success').html('...'); //not working
+        $('#searchinput_' + toremove).html('');  // not working
+        $('#searchsuggecount_'+ toremove).removeClass('danger success').html('...');  //not working
         $("#searchheading_" + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
         $('#panel_' + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
     });
