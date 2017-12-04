@@ -2,7 +2,7 @@ call_back_search_input = "#search_input_1";
 
 $(document).ready(function () {
     var phone_fields = 1,
-        leave_moniths = {},
+        leave_months = {},
         active_adrsearch_destination = "textarea_home_1",
         active_adrsearch_id = 1,
         search_obj = [],
@@ -32,6 +32,14 @@ $(document).ready(function () {
         opt.innerHTML = monthNames[i];
         document.getElementById("omonths_home_1").appendChild(opt);
     }
+
+    // prevent all panels collapsed
+
+    $('.panel-heading div').on('click',function(e){
+        if($(this).parents('.panel').children('.panel-collapse').hasClass('in')){
+            e.stopPropagation();
+        }
+    });
 
 /*    $(document).on('change keydown keyup', '#search_input_1', function (e) {
         search_obj['textaara'] = '#textarea_' + $(this).data('search-input-type') + '_' + $(this).data('id');
@@ -199,8 +207,8 @@ $(document).ready(function () {
         $('#textarea_' + toremove).attr("rows", 1).html('').removeClass('ok');
         $('#addressfield_' + toremove).addClass("hidden");
         $('#searchinputgroup_' + toremove).removeClass("hidden");
-        $('#searchinput_' + toremove).html('');  // not working
-        $('#searchsuggecount_'+ toremove).removeClass('danger success').html('...');  //not working
+        $('#searchinput_' + toremove).html('');  // not working ????????????????????????????????????
+        $('#searchsuggcount_'+ toremove).removeClass('danger success').html('...');
         $("#searchheading_" + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
         $('#panel_' + toremove).removeClass("ok").find('span:first').attr('class', 'pull-left glyphicon glyphicon-asterisk');
     });
@@ -214,11 +222,11 @@ $(document).ready(function () {
         //console.log("destination: " + active_adrsearch_destination);
     });
         // on change of selected years or months
-    $(document).on('change', "[name='option_months'], [name='option_years']", function () {
+    $(document).on('change', "[data-name='months'], [data-name='years']", function () {
 
         var id = $(this).data('id'),
             type = $(this).data('type'),
-            field = this.id,
+            field = $(this).data('name'),
             value = this.value;
 
         // read active panel after changing select
@@ -234,9 +242,9 @@ $(document).ready(function () {
             }, object)[last] = value;
         }
         // call values in array function
-        setValue(leave_moniths, [type, id, field], value);
+        setValue(leave_months, [type, id, field], value);
 
-
+        check_address()
 
         console.log("==> "+ JSON.stringify(leave_moniths, null ,4));
 
@@ -302,6 +310,8 @@ $(document).ready(function () {
             }
         }
     });
+
+
 
     $(document).on('change keydown keyup', 'input', function (e) {
         var ver_type = this.getAttribute("ver");
@@ -420,7 +430,22 @@ $(document).ready(function () {
 
     // end of ready(functon)
 
+    function check_address() {
 
+        var active_id = search_obj['id'],
+            active_type = search_obj['type'];
+
+        var type_count = Object.keys(leave_months[active_type]).length;
+
+        console.log(type_count)
+
+        for(var i = 0; i < type_count; i++) {
+            var tmp = Object.keys(leave_months);
+            console.log(JSON.stringify(tmp[i], null, 4));
+        }
+        //
+
+    }
     function mark(item, status) {
 
 
